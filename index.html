@@ -1,0 +1,351 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f8ff, #a3c9ff);
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50; /* Changed to a green color */
+        }
+
+        form {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #4CAF50; /* Changed to a green color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        h2#result {
+            margin-top: 20px;
+            text-align: center;
+            color: #007700;
+            font-size: 1.2rem;
+        }
+
+        .loading {
+            color: #666;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            form {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Crop Prediction System</h1>
+    <form id="crop-form">
+        <label for="N">Nitrogen (N):</label>
+        <input type="number" id="N" required aria-label="Nitrogen">
+        <br>
+        <label for="P">Phosphorus (P):</label>
+        <input type="number" id="P" required aria-label="Phosphorus">
+        <br>
+        <label for="K">Potassium (K):</label>
+        <input type="number" id="K" required aria-label="Potassium">
+        <br>
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" id="temperature" required aria-label="Temperature">
+        <br>
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" id="humidity" required aria-label="Humidity">
+        <br>
+        <label for="ph">pH:</label>
+        <input type="number" id="ph" step="0.01" required aria-label="pH">
+        <br>
+        <label for="rainfall">Rainfall (mm):</label>
+        <input type="number" id="rainfall" required aria-label="Rainfall">
+        <br>
+        <button type="submit">Get Crop Data</button>
+    </form>
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById('crop-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const N = document.getElementById('N').value;
+            const P = document.getElementById('P').value;
+            const K = document.getElementById('K').value;
+            const temperature = document.getElementById('temperature').value;
+            const humidity = document.getElementById('humidity').value;
+            const ph = document.getElementById('ph').value;
+            const rainfall = document.getElementById('rainfall').value;
+
+            // Input validation
+            if (N < 0 || P < 0 || K < 0 || temperature < -20 || temperature > 50 || humidity < 0 || humidity > 100 || ph < 0 || ph > 14 || rainfall < 0) {
+                document.getElementById('result').innerText = 'Error: Please enter valid input values.';
+                return;
+            }
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = 'Loading...';
+
+            fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    N: N,
+                    P: P,
+                    K: K,
+                    temperature: temperature,
+                    humidity: humidity,
+                    ph: ph,
+                    rainfall: rainfall
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement.innerText = 'Recommended Crop: ' + data.recommended_crop;
+            })
+            .catch(error => {
+                resultElement.innerText = 'Error: Unable to get prediction.';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f8ff, #a3c9ff);
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #4CAF50; /* Green color */
+        }
+
+        table {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table td {
+            padding: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #4CAF50; /* Green color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        h2#result {
+            text-align: center;
+            color: #007700;
+            font-size: 1.2rem;
+        }
+
+        .loading {
+            color: #666;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            table {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Crop Prediction System</h1>
+    <form id="crop-form">
+        <table>
+            <tr>
+                <td><label for="N">Nitrogen (N):</label></td>
+                <td><input type="number" id="N" required aria-label="Nitrogen"></td>
+            </tr>
+            <tr>
+                <td><label for="P">Phosphorus (P):</label></td>
+                <td><input type="number" id="P" required aria-label="Phosphorus"></td>
+            </tr>
+            <tr>
+                <td><label for="K">Potassium (K):</label></td>
+                <td><input type="number" id="K" required aria-label="Potassium"></td>
+            </tr>
+            <tr>
+                <td><label for="temperature">Temperature (°C):</label></td>
+                <td><input type="number" id="temperature" required aria-label="Temperature"></td>
+            </tr>
+            <tr>
+                <td><label for="humidity">Humidity (%):</label></td>
+                <td><input type="number" id="humidity" required aria-label="Humidity"></td>
+            </tr>
+            <tr>
+                <td><label for="ph">pH:</label></td>
+                <td><input type="number" id="ph" step="0.01" required aria-label="pH"></td>
+            </tr>
+            <tr>
+                <td><label for="rainfall">Rainfall (mm):</label></td>
+                <td><input type="number" id="rainfall" required aria-label="Rainfall"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Get Crop Data</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById('crop-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const N = document.getElementById('N').value;
+            const P = document.getElementById('P').value;
+            const K = document.getElementById('K').value;
+            const temperature = document.getElementById('temperature').value;
+            const humidity = document.getElementById('humidity').value;
+            const ph = document.getElementById('ph').value;
+            const rainfall = document.getElementById('rainfall').value;
+
+            // Input validation
+            if (N < 0 || P < 0 || K < 0 || temperature < -20 || temperature > 50 || humidity < 0 || humidity > 100 || ph < 0 || ph > 14 || rainfall < 0) {
+                document.getElementById('result').innerText = 'Error: Please enter valid input values.';
+                return;
+            }
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = 'Loading...';
+
+            fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    N: N,
+                    P: P,
+                    K: K,
+                    temperature: temperature,
+                    humidity: humidity,
+                    ph: ph,
+                    rainfall: rainfall
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement.innerText = 'Recommended Crop: ' + data.recommended_crop;
+            })
+            .catch(error => {
+                resultElement.innerText = 'Error: Unable to get prediction.';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
