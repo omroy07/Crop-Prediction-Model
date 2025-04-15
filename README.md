@@ -39,7 +39,6 @@ The dataset includes:
 - Soil pH
 - Target: Suitable crop label
 
-> 📦 *Dataset Source: [Kaggle / Official Dataset Name]*
 
 ---
 
