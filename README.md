@@ -8,8 +8,7 @@ This project presents a Machine Learning-based approach to recommend the most su
 
 - `final Crop Recommendation Using Machine Learning.ipynb` — Jupyter Notebook with data analysis, model training, evaluation, and prediction.
 - `app.py` — Flask web app to provide user-friendly interface.
-- `templates/` — Contains HTML templates for the web app.
-- `static/` — Contains CSS or image files (if any).
+- `index.html` — Contains HTML templates for the web app.
 - `model.pkl` — Trained ML model saved using `pickle` or `joblib`.
 - `requirements.txt` — List of required dependencies.
 
@@ -79,16 +78,16 @@ The best-performing model was selected based on accuracy and evaluation metrics.
 - Precision, Recall, F1-Score
 
 ---
+---
 
-## 🌐 Web Application
+## 👨‍👩‍👧‍👦 Team Members
 
-The web interface allows users to input soil and climate parameters and receive crop recommendations in real-time.
+This project was developed collaboratively by:
 
-### ⚙️ How to Run the Web App
+- **Om Roy** – Lead Developer, ML Model Training & Evaluation  
+- **Om Roy** – Data Cleaning, EDA & Visualization  
+- **Kanisha Ravindra Sharma** – Web Development, Model Integration & UI Design  
 
-1. Clone this repository:
+---
 
-   ```bash
-   git clone https://github.com/yourusername/crop-recommendation-ml.git
-   cd crop-recommendation-ml
-'''
+
